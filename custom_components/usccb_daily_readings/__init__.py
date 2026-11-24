@@ -19,6 +19,12 @@ _LOGGER = logging.getLogger(__name__)
 PLATFORMS: list[Platform] = [Platform.SENSOR]
 
 
+async def _async_options_updated(hass: HomeAssistant, entry: UsccbConfigEntry) -> None:
+    """Re-render sensors when presentation options change (no RSS refetch)."""
+    coordinator = entry.runtime_data
+    coordinator.async_update_listeners()
+
+
 async def async_setup_entry(hass: HomeAssistant, entry: UsccbConfigEntry) -> bool:
     """Set up USCCB Daily Readings from a config entry."""
     coordinator = DailyReadingsCoordinator(
@@ -26,6 +32,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: UsccbConfigEntry) -> boo
     )
     await coordinator.async_config_entry_first_refresh()
     entry.runtime_data = coordinator
+    entry.async_on_unload(entry.add_update_listener(_async_options_updated))
     _LOGGER.info(
         "USCCB Daily Readings ready (poll interval %s)",
         UPDATE_INTERVAL,

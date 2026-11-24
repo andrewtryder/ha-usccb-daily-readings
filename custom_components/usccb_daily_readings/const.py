@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from datetime import timedelta
 
+from homeassistant.config_entries import ConfigEntry
+
 DOMAIN = "usccb_daily_readings"
 UNIQUE_ID = "usccb_daily_readings"
 MANUFACTURER = "United States Conference of Catholic Bishops"
@@ -15,8 +17,8 @@ API_TIMEOUT = 30
 MAX_RESPONSE_BYTES = 256 * 1024
 UPDATE_INTERVAL = timedelta(hours=1)
 
-# Parsed internally; omit from public state attributes unless explicitly enabled.
-EXPOSE_FULL_TEXT = False
+CONF_EXPOSE_FULL_TEXT = "expose_full_text"
+DEFAULT_EXPOSE_FULL_TEXT = False
 
 ATTR_DATE = "date"
 ATTR_REFERENCE = "reference"
@@ -33,6 +35,15 @@ ATTR_MEMORIAL_LINKS = "memorial_links"
 ATTR_SECTIONS = "sections"
 
 INTEGRATION_VERSION = "0.1.0"
+
+
+def expose_full_text_enabled(entry: ConfigEntry) -> bool:
+    """Return whether full reading text should appear in sensor attributes."""
+    if CONF_EXPOSE_FULL_TEXT in entry.options:
+        return bool(entry.options[CONF_EXPOSE_FULL_TEXT])
+    if CONF_EXPOSE_FULL_TEXT in entry.data:
+        return bool(entry.data[CONF_EXPOSE_FULL_TEXT])
+    return DEFAULT_EXPOSE_FULL_TEXT
 
 
 def user_agent() -> str:
