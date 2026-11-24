@@ -26,6 +26,7 @@ REQUEST_TIMEOUT = aiohttp.ClientTimeout(total=60)
 
 
 async def main(argv: list[str] | None = None) -> int:
+    """Run onboarding, config flow, entity, and diagnostics smoke checks."""
     args = _parse_args(argv)
     ha_url = args.url.rstrip("/")
     username = args.username
