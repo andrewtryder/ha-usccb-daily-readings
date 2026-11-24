@@ -62,18 +62,39 @@ class DailyReadingsCoordinator(DataUpdateCoordinator[DailyReadingsState]):
         """Return today's Mass readings, retrying until the feed publishes them."""
         today = self.today
         if self.data is not None and self.data.mass.date == today:
+            _LOGGER.debug(
+                "Using cached readings for %s (%s)",
+                today.isoformat(),
+                self.data.mass.celebration,
+            )
             return self.data
+
+        _LOGGER.info("Checking USCCB RSS feed for %s", today.isoformat())
         try:
             feed = await self.client.fetch_feed()
         except USCCBError as err:
+            _LOGGER.warning("USCCB RSS check failed: %s", err)
             raise UpdateFailed(str(err)) from err
 
         mass = mass_for_date(feed, today)
         if mass is None:
-            raise UpdateFailed(
-                f"Today's readings ({today.isoformat()}) are not yet available in the USCCB RSS feed"
+            message = (
+                f"Today's readings ({today.isoformat()}) are not yet available "
+                "in the USCCB RSS feed"
             )
+            _LOGGER.info(
+                "Today's readings (%s) not yet in RSS feed (%s item(s)); "
+                "retrying on next scheduled update",
+                today.isoformat(),
+                len(feed.items),
+            )
+            raise UpdateFailed(message)
 
+        _LOGGER.info(
+            "Loaded readings for %s: %s",
+            mass.date.isoformat(),
+            mass.celebration,
+        )
         return DailyReadingsState(
             mass=mass,
             feed_item_count=len(feed.items),
