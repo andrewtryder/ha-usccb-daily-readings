@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import date, datetime, timezone
+from pathlib import Path
 from unittest.mock import AsyncMock, patch
 
 import pytest
@@ -16,8 +17,6 @@ from custom_components.usccb_daily_readings.const import DOMAIN, UNIQUE_ID
 from custom_components.usccb_daily_readings.coordinator import DailyReadingsCoordinator
 from tests.fixtures import load_fixture_bytes
 
-from pathlib import Path
-
 FIXTURE = Path(__file__).parent / "fixtures" / "rss" / "weekday_sample.xml"
 YESTERDAY_ONLY = b"""<?xml version="1.0"?><rss version="2.0"><channel>
 <item><title>Old</title>
@@ -27,14 +26,14 @@ YESTERDAY_ONLY = b"""<?xml version="1.0"?><rss version="2.0"><channel>
 
 
 @pytest.mark.asyncio
-async def test_new_local_day_without_feed_entry_unavailable(hass, mock_usccb_feed) -> None:
+async def test_new_local_day_without_feed_entry_unavailable(
+    hass, mock_usccb_feed
+) -> None:
     """Sensors become unavailable when the local calendar advances past the feed."""
     hass.config.time_zone = "America/New_York"
     nov_24_evening = datetime(2026, 11, 25, 3, 30, tzinfo=timezone.utc)
     nov_25_morning = datetime(2026, 11, 25, 12, 0, tzinfo=timezone.utc)
-    entry = MockConfigEntry(
-        domain=DOMAIN, title="USCCB", data={}, unique_id=UNIQUE_ID
-    )
+    entry = MockConfigEntry(domain=DOMAIN, title="USCCB", data={}, unique_id=UNIQUE_ID)
     entry.add_to_hass(hass)
     with patch.object(dt_util, "now", return_value=dt_util.as_local(nov_24_evening)):
         assert await hass.config_entries.async_setup(entry.entry_id)
@@ -67,9 +66,7 @@ async def test_recovers_when_today_published(hass) -> None:
     )
     with patch.object(client, "fetch_feed", fetch_mock):
         coordinator = DailyReadingsCoordinator(hass, entry, client)
-        with patch.object(
-            dt_util, "now", return_value=dt_util.as_local(today_frozen)
-        ):
+        with patch.object(dt_util, "now", return_value=dt_util.as_local(today_frozen)):
             await coordinator.async_refresh()
             assert fetch_mock.await_count == 1
             assert not coordinator.last_update_success

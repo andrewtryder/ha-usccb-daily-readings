@@ -144,11 +144,11 @@ async def _ensure_integration(
     ha_url: str,
     headers: dict[str, str],
 ) -> str | None:
-    async with session.get(f"{ha_url}/api/config/config_entries/entry", headers=headers) as resp:
+    async with session.get(
+        f"{ha_url}/api/config/config_entries/entry", headers=headers
+    ) as resp:
         existing = [
-            e
-            for e in await resp.json()
-            if e.get("domain") == "usccb_daily_readings"
+            e for e in await resp.json() if e.get("domain") == "usccb_daily_readings"
         ]
     if existing:
         return existing[0]["entry_id"]
@@ -245,7 +245,9 @@ async def _print_diagnostics(
         },
     )
     if "Synthetic" in body:
-        print("ERROR: diagnostics must not include fixture reading text", file=sys.stderr)
+        print(
+            "ERROR: diagnostics must not include fixture reading text", file=sys.stderr
+        )
         return False
     return True
 
@@ -287,9 +289,7 @@ async def _login_flow_token(
         return data["access_token"]
 
 
-async def _token_valid(
-    session: aiohttp.ClientSession, ha_url: str, token: str
-) -> bool:
+async def _token_valid(session: aiohttp.ClientSession, ha_url: str, token: str) -> bool:
     headers = {"Authorization": f"Bearer {token}"}
     async with session.get(f"{ha_url}/api/", headers=headers) as resp:
         return resp.status == 200

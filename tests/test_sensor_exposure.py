@@ -9,7 +9,11 @@ import pytest
 from homeassistant.util import dt as dt_util
 from pytest_homeassistant.common import MockConfigEntry
 
-from custom_components.usccb_daily_readings.const import ATTR_SECTIONS, DOMAIN, UNIQUE_ID
+from custom_components.usccb_daily_readings.const import (
+    ATTR_SECTIONS,
+    DOMAIN,
+    UNIQUE_ID,
+)
 
 
 @pytest.mark.asyncio
