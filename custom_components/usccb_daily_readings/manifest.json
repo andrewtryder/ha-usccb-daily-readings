@@ -1,7 +1,9 @@
 {
   "domain": "usccb_daily_readings",
   "name": "USCCB Daily Readings",
-  "codeowners": ["@andrewtryder"],
+  "codeowners": [
+    "@andrewtryder"
+  ],
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/andrewtryder/ha-usccb-daily-readings",
