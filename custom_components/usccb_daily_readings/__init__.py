@@ -11,6 +11,7 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.event import async_track_time_change
 
 from .api import USCCBClient
+from .const import UPDATE_INTERVAL
 from .coordinator import DailyReadingsCoordinator, UsccbConfigEntry
 
 _LOGGER = logging.getLogger(__name__)
@@ -25,8 +26,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: UsccbConfigEntry) -> boo
     )
     await coordinator.async_config_entry_first_refresh()
     entry.runtime_data = coordinator
+    _LOGGER.info(
+        "USCCB Daily Readings ready (poll interval %s)",
+        UPDATE_INTERVAL,
+    )
 
     async def _refresh_after_midnight(_now: datetime) -> None:
+        _LOGGER.info("Local midnight — refreshing USCCB daily readings")
         await coordinator.async_request_refresh()
 
     entry.async_on_unload(
