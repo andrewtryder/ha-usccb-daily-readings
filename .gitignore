@@ -13,3 +13,6 @@ coverage.json
 tests/testing_config/
 .devcontainer/ha-config/*
 !.devcontainer/ha-config/configuration.yaml
+
+# Local dev smoke / HA disposable stack outputs (not committed)
+scripts/artifacts/

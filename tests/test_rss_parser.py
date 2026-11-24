@@ -67,3 +67,30 @@ def test_reject_invalid_root() -> None:
     """Require an RSS root element."""
     with pytest.raises(USCCBParseError, match="not an RSS feed"):
         parse_feed(b"<feed></feed>")
+
+
+def test_acclamation_without_citation() -> None:
+    """Accept seasonal acclamation labels without scripture links."""
+    fixture = Path(__file__).parent / "fixtures" / "rss" / "acclamation_label_only.xml"
+    feed = parse_feed(load_fixture_bytes(fixture))
+    mass = mass_for_date(feed, date(2026, 11, 25))
+    assert mass is not None
+    alleluia = mass.section_by_type(SectionType.ALLELUIA)
+    assert alleluia is not None
+    assert alleluia.citations == ()
+
+
+def test_mass_for_date_out_of_order_items() -> None:
+    """Select readings by link date regardless of item order."""
+    payload = load_fixture_bytes(FIXTURE)
+    start = payload.find(b"<item>")
+    second = payload.find(b"<item>", start + 1)
+    end = payload.rfind(b"</item>") + len(b"</item>")
+    item1 = payload[start:second]
+    item2 = payload[second:end]
+    channel_end = payload.rfind(b"</channel>")
+    swapped = payload[:start] + item2 + item1 + payload[channel_end:]
+    mass_forward = mass_for_date(parse_feed(payload), date(2026, 11, 24))
+    mass_swapped = mass_for_date(parse_feed(swapped), date(2026, 11, 24))
+    assert mass_forward and mass_swapped
+    assert mass_forward.celebration == mass_swapped.celebration

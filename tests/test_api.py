@@ -72,6 +72,23 @@ async def test_fetch_feed_challenge_page(hass, aioclient_mock) -> None:
 
 
 @pytest.mark.asyncio
+async def test_fetch_feed_rate_limited(hass, aioclient_mock) -> None:
+    """Include Retry-After details for HTTP 429 responses."""
+    from homeassistant.helpers.aiohttp_client import async_get_clientsession
+
+    from custom_components.usccb_daily_readings.api import USCCBConnectionError
+
+    aioclient_mock.get(
+        "https://bible.usccb.org/readings.rss",
+        status=429,
+        headers={"Content-Type": "application/rss+xml", "Retry-After": "120"},
+    )
+    client = USCCBClient(async_get_clientsession(hass))
+    with pytest.raises(USCCBConnectionError, match="Retry-After: 120"):
+        await client.fetch_feed()
+
+
+@pytest.mark.asyncio
 async def test_client_does_not_close_session() -> None:
     """The client must not own the aiohttp session."""
     session = MagicMock()
