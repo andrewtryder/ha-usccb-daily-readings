@@ -11,3 +11,5 @@ coverage.json
 # Local secrets / env (never commit)
 .env
 tests/testing_config/
+.devcontainer/ha-config/*
+!.devcontainer/ha-config/configuration.yaml

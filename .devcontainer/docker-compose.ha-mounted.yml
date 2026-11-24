@@ -1,0 +1,12 @@
+services:
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:2026.11.3
+    container_name: ha-usccb-homeassistant
+    volumes:
+      - ./ha-config:/config
+      - ../custom_components/usccb_daily_readings:/config/custom_components/usccb_daily_readings:ro
+    ports:
+      - "8123:8123"
+    environment:
+      TZ: ${TZ:-America/New_York}
+    restart: unless-stopped

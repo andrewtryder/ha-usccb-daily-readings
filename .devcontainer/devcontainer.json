@@ -1,0 +1,46 @@
+{
+  "name": "USCCB Daily Readings",
+  "image": "mcr.microsoft.com/devcontainers/python:3.14-bookworm",
+  "features": {
+    "ghcr.io/eitsup/devcontainer-features/uv:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "containerEnv": {
+    "UV_PROJECT_ENVIRONMENT": "/home/vscode/.venv",
+    "UV_CACHE_DIR": "/home/vscode/uv-cache",
+    "UV_LINK_MODE": "copy"
+  },
+  "onCreateCommand": "sudo chown vscode:vscode /home/vscode/.venv /home/vscode/uv-cache",
+  "postCreateCommand": "uv sync --locked && uv run --locked pre-commit install",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.debugpy",
+        "charliermarsh.ruff",
+        "github.vscode-github-actions"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/home/vscode/.venv/bin/python",
+        "python.testing.pytestEnabled": true,
+        "python.testing.unittestEnabled": false,
+        "editor.formatOnSave": true,
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff"
+        }
+      }
+    }
+  },
+  "mounts": [
+    "source=${localWorkspaceFolderBasename}_venv,target=/home/vscode/.venv,type=volume",
+    "source=${localWorkspaceFolderBasename}_uv_cache,target=/home/vscode/uv-cache,type=volume"
+  ],
+  "forwardPorts": [8123],
+  "portsAttributes": {
+    "8123": {
+      "label": "Home Assistant (optional dev stack)",
+      "onAutoForward": "silent"
+    }
+  },
+  "remoteUser": "vscode"
+}

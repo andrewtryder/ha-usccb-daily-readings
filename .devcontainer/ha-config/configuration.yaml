@@ -1,0 +1,7 @@
+# Minimal Home Assistant config for USCCB Daily Readings development.
+default_config:
+
+logger:
+  default: warning
+  logs:
+    custom_components.usccb_daily_readings: debug

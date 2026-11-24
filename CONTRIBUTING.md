@@ -13,6 +13,22 @@ uv sync --locked
 uv run --locked pre-commit install
 ```
 
+### Dev container
+
+Reopen the repository in the dev container (Python 3.14, `uv`, `gh`, Ruff). The post-create step runs `uv sync --locked`.
+
+### Optional Home Assistant smoke test (Docker)
+
+For a live UI check with the integration bind-mounted (not required for CI):
+
+```bash
+chmod +x scripts/start-ha-dev.sh
+./scripts/start-ha-dev.sh
+# Stop: docker compose -f .devcontainer/docker-compose.ha-mounted.yml down
+```
+
+Automated coverage uses `pytest-homeassistant` only; do not point this at production Home Assistant.
+
 ## Validation
 
 Run the full local contract:
