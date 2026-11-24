@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.0](https://github.com/andrewtryder/ha-usccb-daily-readings/compare/v0.1.0...v0.2.0) (2026-11-24)
+
+
+### Features
+
+* add configurable full-text reading exposure ([#8](https://github.com/andrewtryder/ha-usccb-daily-readings/issues/8)) ([653beff](https://github.com/andrewtryder/ha-usccb-daily-readings/commit/653beff50840ad6362a44a9d238912dd5985455c))
+* log USCCB RSS checks at INFO for easier troubleshooting ([#6](https://github.com/andrewtryder/ha-usccb-daily-readings/issues/6)) ([c348e34](https://github.com/andrewtryder/ha-usccb-daily-readings/commit/c348e34e65a71d1f90d0f4d53f5df21c6e39ec1b))
+
 ## 0.1.0 (2026-11-24)
 
 
