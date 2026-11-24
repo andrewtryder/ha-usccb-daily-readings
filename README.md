@@ -51,6 +51,35 @@ Manual install: copy `custom_components/usccb_daily_readings` into your configur
 
 Attributes include date, source URL, section type, translation, copyright, and memorial links when present. Full reading text is parsed internally but **not** exposed in attributes by default (see [Copyright](#copyright-and-attribution)).
 
+### Entity IDs (default install)
+
+After setup, entities use the `usccb_daily_readings` slug and these keys:
+
+| Entity ID | Friendly name (typical) |
+|-----------|-------------------------|
+| `sensor.usccb_daily_readings_daily_mass` | Daily Mass |
+| `sensor.usccb_daily_readings_first_reading` | First Reading |
+| `sensor.usccb_daily_readings_responsorial_psalm` | Responsorial Psalm |
+| `sensor.usccb_daily_readings_second_reading` | Second Reading |
+| `sensor.usccb_daily_readings_gospel_acclamation` | Gospel Acclamation |
+| `sensor.usccb_daily_readings_gospel` | Gospel |
+
+Useful attributes on reading sensors (v0.1.0 defaults): `date`, `reference`, `citations`, `source_url`, `section_type`, `section_available`, `translation`, `copyright`, `attribution`. The `text` attribute is omitted unless full-text exposure is explicitly enabled in code (`EXPOSE_FULL_TEXT`).
+
+### Dashboard example
+
+```yaml
+type: entities
+title: Today's Mass
+entities:
+  - entity: sensor.usccb_daily_readings_daily_mass
+  - entity: sensor.usccb_daily_readings_first_reading
+  - entity: sensor.usccb_daily_readings_responsorial_psalm
+  - entity: sensor.usccb_daily_readings_second_reading
+  - entity: sensor.usccb_daily_readings_gospel_acclamation
+  - entity: sensor.usccb_daily_readings_gospel
+```
+
 ## Update behavior
 
 Readings are selected using Home Assistant's configured time zone. The integration matches today's liturgical date to the feed item link (`MMDDYY`). If today's readings are not yet in the RSS window, sensors stay **unavailable** until the next hourly retry—yesterday's text is never shown as today's.
