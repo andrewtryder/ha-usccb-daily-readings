@@ -78,7 +78,7 @@ SENSOR_DESCRIPTIONS: tuple[UsccbSensorDescription, ...] = (
     UsccbSensorDescription(
         key="first_reading",
         translation_key="first_reading",
-        icon="mdi:book-open-page-variant",
+        icon="mdi:book-open-variant",
         resolve=lambda mass: mass.first_reading(),
     ),
     UsccbSensorDescription(
@@ -90,13 +90,13 @@ SENSOR_DESCRIPTIONS: tuple[UsccbSensorDescription, ...] = (
     UsccbSensorDescription(
         key="second_reading",
         translation_key="second_reading",
-        icon="mdi:book-open-page-variant-outline",
+        icon="mdi:book-open-variant",
         resolve=lambda mass: mass.second_reading(),
     ),
     UsccbSensorDescription(
         key="gospel_acclamation",
         translation_key="gospel_acclamation",
-        icon="mdi:format-quote-close",
+        icon="mdi:music-clef-treble",
         resolve=lambda mass: mass.section_by_type(SectionType.ALLELUIA),
         state_from_mass=lambda mass: (
             mass.primary_citation(mass.section_by_type(SectionType.ALLELUIA))
@@ -106,7 +106,7 @@ SENSOR_DESCRIPTIONS: tuple[UsccbSensorDescription, ...] = (
     UsccbSensorDescription(
         key="gospel",
         translation_key="gospel",
-        icon="mdi:book-cross",
+        icon="mdi:cross",
         resolve=lambda mass: mass.section_by_type(SectionType.GOSPEL),
     ),
 )

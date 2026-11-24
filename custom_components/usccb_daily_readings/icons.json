@@ -2,11 +2,11 @@
   "entity": {
     "sensor": {
       "daily_mass": "mdi:church",
-      "first_reading": "mdi:book-open-page-variant",
+      "first_reading": "mdi:book-open-variant",
       "responsorial_psalm": "mdi:music-note",
-      "second_reading": "mdi:book-open-page-variant-outline",
-      "gospel_acclamation": "mdi:format-quote-close",
-      "gospel": "mdi:book-cross"
+      "second_reading": "mdi:book-open-variant",
+      "gospel_acclamation": "mdi:music-clef-treble",
+      "gospel": "mdi:cross"
     }
   }
 }

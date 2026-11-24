@@ -10,6 +10,7 @@ dependencies = []
 dev = [
     "coverage==7.17.4",
     "freezegun==1.5.5",
+    "pillow>=11.0.0",
     "pre-commit==4.7.0",
     "pytest==9.0.3",
     "pytest-asyncio==1.4.0",

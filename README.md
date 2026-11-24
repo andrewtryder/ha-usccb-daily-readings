@@ -1,5 +1,7 @@
 # USCCB Daily Readings for Home Assistant
 
+<img src="custom_components/usccb_daily_readings/brand/icon.png" alt="USCCB Daily Readings" width="100">
+
 Daily Mass reading citations from the official USCCB English RSS feed—pure Python, no API key, no browser, no separate service.
 
 [![Validation on main](https://img.shields.io/github/actions/workflow/status/andrewtryder/ha-usccb-daily-readings/validate.yml?branch=main&style=flat-square&label=validation)](https://github.com/andrewtryder/ha-usccb-daily-readings/actions/workflows/validate.yml)

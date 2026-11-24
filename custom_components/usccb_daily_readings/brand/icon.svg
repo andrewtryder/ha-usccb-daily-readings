@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="USCCB Daily Readings">
+  <rect x="24" y="16" width="72" height="88" rx="10" fill="#822d3e"/>
+  <rect x="24" y="32" width="72" height="12" fill="#a44757"/>
+  <path d="M40 10 V28 M80 10 V28" stroke="#822d3e" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <path d="M60 51 V77 M51 60 H69" stroke="#f4d28d" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M60 84 Q49 76 35 80 V95 Q48 91 60 99 Q72 91 85 95 V80 Q71 76 60 84Z" fill="#f5efe2"/>
+  <path d="M60 84 V99" stroke="#822d3e" stroke-width="1.5" fill="none"/>
+</svg>

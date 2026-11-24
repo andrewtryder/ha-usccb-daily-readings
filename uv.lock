@@ -1136,6 +1136,7 @@ source = { virtual = "." }
 dev = [
     { name = "coverage" },
     { name = "freezegun" },
+    { name = "pillow" },
     { name = "pre-commit" },
     { name = "pytest" },
     { name = "pytest-asyncio" },
@@ -1152,6 +1153,7 @@ dev = [
 dev = [
     { name = "coverage", specifier = "==7.17.4" },
     { name = "freezegun", specifier = "==1.5.5" },
+    { name = "pillow", specifier = ">=11.0.0" },
     { name = "pre-commit", specifier = "==4.7.0" },
     { name = "pytest", specifier = "==9.0.3" },
     { name = "pytest-asyncio", specifier = "==1.4.0" },
