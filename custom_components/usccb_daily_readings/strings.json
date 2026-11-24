@@ -3,11 +3,31 @@
     "step": {
       "user": {
         "title": "USCCB Daily Readings",
-        "description": "This integration loads English daily Mass readings from the official USCCB RSS feed. No account or API key is required."
+        "description": "This integration loads English daily Mass readings from the official USCCB RSS feed. No account or API key is required.",
+        "data": {
+          "expose_full_text": "Expose full reading text"
+        },
+        "data_description": {
+          "expose_full_text": "Include complete Scripture readings in sensor attributes for authorized use in dashboards, automations, notifications, and text-to-speech. Scripture text remains subject to applicable copyright and USCCB usage permissions; enabling this option does not by itself grant permission."
+        }
       }
     },
     "abort": {
       "already_configured": "USCCB Daily Readings is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "USCCB Daily Readings options",
+        "description": "Control how reading content is exposed in Home Assistant.",
+        "data": {
+          "expose_full_text": "Expose full reading text"
+        },
+        "data_description": {
+          "expose_full_text": "Include complete Scripture readings in sensor attributes for authorized use in dashboards, automations, notifications, and text-to-speech. Scripture text remains subject to applicable copyright and USCCB usage permissions; enabling this option does not by itself grant permission."
+        }
+      }
     }
   },
   "entity": {

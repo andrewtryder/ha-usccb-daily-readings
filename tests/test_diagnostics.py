@@ -9,7 +9,12 @@ import pytest
 from homeassistant.util import dt as dt_util
 from pytest_homeassistant.common import MockConfigEntry
 
-from custom_components.usccb_daily_readings.const import DOMAIN, FEED_URL, UNIQUE_ID
+from custom_components.usccb_daily_readings.const import (
+    CONF_EXPOSE_FULL_TEXT,
+    DOMAIN,
+    FEED_URL,
+    UNIQUE_ID,
+)
 from custom_components.usccb_daily_readings.diagnostics import (
     async_get_config_entry_diagnostics,
 )
@@ -33,4 +38,5 @@ async def test_diagnostics_exclude_text(hass, mock_usccb_feed) -> None:
         diagnostics = await async_get_config_entry_diagnostics(hass, entry)
         assert diagnostics["feed_url"] == FEED_URL
         assert diagnostics["liturgical_date"] == "2026-11-24"
+        assert diagnostics[CONF_EXPOSE_FULL_TEXT] is False
         assert "Synthetic gospel text" not in str(diagnostics)

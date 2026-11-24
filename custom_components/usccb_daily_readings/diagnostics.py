@@ -6,7 +6,12 @@ from typing import Any
 
 from homeassistant.core import HomeAssistant
 
-from .const import FEED_URL, INTEGRATION_VERSION
+from .const import (
+    CONF_EXPOSE_FULL_TEXT,
+    FEED_URL,
+    INTEGRATION_VERSION,
+    expose_full_text_enabled,
+)
 from .coordinator import UsccbConfigEntry
 
 
@@ -20,6 +25,7 @@ async def async_get_config_entry_diagnostics(
     section_types = [section.section_type for section in mass.sections] if mass else []
     return {
         "integration_version": INTEGRATION_VERSION,
+        CONF_EXPOSE_FULL_TEXT: expose_full_text_enabled(entry),
         "feed_url": FEED_URL,
         "last_successful_refresh": data.last_refresh.isoformat() if data else None,
         "liturgical_date": mass.date.isoformat() if mass else None,

@@ -14,6 +14,7 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import (
+    ATTR_ALTERNATIVES,
     ATTR_ATTRIBUTION,
     ATTR_CITATIONS,
     ATTR_COPYRIGHT,
@@ -27,8 +28,8 @@ from .const import (
     ATTR_TEXT,
     ATTR_TRANSLATION,
     DOMAIN,
-    EXPOSE_FULL_TEXT,
     MANUFACTURER,
+    expose_full_text_enabled,
 )
 from .coordinator import DailyReadingsCoordinator, UsccbConfigEntry
 from .models import DailyMass, ReadingSection, SectionType
@@ -48,7 +49,28 @@ def _citations(section: ReadingSection | None) -> list[str]:
     return [citation.display for citation in section.citations]
 
 
-def _section_attrs(section: ReadingSection | None) -> dict[str, Any]:
+def _section_payload(
+    section: ReadingSection, *, expose_full_text: bool
+) -> dict[str, Any]:
+    """Serialize one section for the Daily Mass aggregate attribute."""
+    payload: dict[str, Any] = {
+        "header": section.header,
+        "type": section.section_type,
+        "citations": _citations(section),
+    }
+    if expose_full_text and section.text:
+        payload["text"] = section.text
+    if expose_full_text and section.alternatives:
+        payload["alternatives"] = [
+            _section_payload(alternative, expose_full_text=True)
+            for alternative in section.alternatives
+        ]
+    return payload
+
+
+def _section_attrs(
+    section: ReadingSection | None, *, expose_full_text: bool
+) -> dict[str, Any]:
     if section is None:
         return {
             ATTR_SECTION_AVAILABLE: False,
@@ -62,8 +84,13 @@ def _section_attrs(section: ReadingSection | None) -> dict[str, Any]:
         ATTR_CITATIONS: _citations(section),
         ATTR_SECTION_TYPE: section.section_type,
     }
-    if EXPOSE_FULL_TEXT and section.text:
+    if expose_full_text and section.text:
         attrs[ATTR_TEXT] = section.text
+    if expose_full_text and section.alternatives:
+        attrs[ATTR_ALTERNATIVES] = [
+            _section_payload(alternative, expose_full_text=True)
+            for alternative in section.alternatives
+        ]
     return attrs
 
 
@@ -129,6 +156,7 @@ class UsccbReadingSensor(CoordinatorEntity[DailyReadingsCoordinator], SensorEnti
     """Sensor for one liturgical reading section or celebration title."""
 
     _attr_has_entity_name = True
+    _unrecorded_attributes = frozenset({ATTR_TEXT, ATTR_SECTIONS, ATTR_ALTERNATIVES})
     entity_description: UsccbSensorDescription
 
     def __init__(
@@ -177,21 +205,18 @@ class UsccbReadingSensor(CoordinatorEntity[DailyReadingsCoordinator], SensorEnti
             return {}
         mass = self.coordinator.data.mass
         section = self.entity_description.resolve(mass)
+        expose_full_text = expose_full_text_enabled(self.coordinator.config_entry)
         attrs: dict[str, Any] = {
             ATTR_DATE: mass.date.isoformat(),
             ATTR_SOURCE_URL: mass.source_url,
             ATTR_TRANSLATION: mass.translation,
             ATTR_COPYRIGHT: mass.copyright,
             ATTR_ATTRIBUTION: mass.attribution,
-            **_section_attrs(section),
+            **_section_attrs(section, expose_full_text=expose_full_text),
         }
         if self.entity_description.key == "daily_mass":
             attrs[ATTR_SECTIONS] = [
-                {
-                    "header": item.header,
-                    "type": item.section_type,
-                    "citations": _citations(item),
-                }
+                _section_payload(item, expose_full_text=expose_full_text)
                 for item in mass.sections
             ]
             attrs[ATTR_MEMORIAL_LINKS] = [
