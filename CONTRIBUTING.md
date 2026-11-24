@@ -27,7 +27,13 @@ chmod +x scripts/start-ha-dev.sh
 # Stop: docker compose -f .devcontainer/docker-compose.ha-mounted.yml down
 ```
 
-Automated coverage uses `pytest-homeassistant` only; do not point this at production Home Assistant.
+After `./scripts/start-ha-dev.sh`, optional REST smoke (tokens stay in `scripts/artifacts/`, gitignored):
+
+```bash
+uv run python scripts/smoke_ha.py --no-unload
+```
+
+Override URL or credentials with `HA_SMOKE_URL`, `HA_SMOKE_USER`, and `HA_SMOKE_PASSWORD`. Do not point this at production Home Assistant.
 
 ## Validation
 
