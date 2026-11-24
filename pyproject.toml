@@ -1,0 +1,60 @@
+[project]
+name = "ha-usccb-daily-readings"
+version = "0.0.0"
+description = "Home Assistant integration for USCCB daily Mass readings via RSS"
+readme = "README.md"
+requires-python = ">=3.14.2"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "coverage==7.17.4",
+    "freezegun==1.5.5",
+    "pre-commit==4.7.0",
+    "pytest==9.0.3",
+    "pytest-asyncio==1.4.0",
+    "pytest-cov==7.1.0",
+    "pytest-homeassistant==2026.11.3",
+    "pytest-socket==0.8.1",
+    "ruff==0.17.6",
+    "voluptuous==0.16.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+addopts = [
+    "-p",
+    "no:respx",
+    "--cov=custom_components.usccb_daily_readings",
+    "--cov-report=term-missing",
+    "--cov-report=xml",
+    "--disable-socket",
+    "--allow-unix-socket",
+]
+
+[tool.ruff]
+target-version = "py314"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "D"]
+ignore = []
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*.py" = ["D"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.coverage.run]
+source = ["custom_components/usccb_daily_readings"]
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true

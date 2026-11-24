@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+.pre-commit-cache/
+coverage.json
+
+# Local secrets / env (never commit)
+.env
+tests/testing_config/

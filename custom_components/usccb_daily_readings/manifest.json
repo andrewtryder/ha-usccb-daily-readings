@@ -1,0 +1,13 @@
+{
+  "domain": "usccb_daily_readings",
+  "name": "USCCB Daily Readings",
+  "codeowners": ["@andrewtryder"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/andrewtryder/ha-usccb-daily-readings",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/andrewtryder/ha-usccb-daily-readings/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}

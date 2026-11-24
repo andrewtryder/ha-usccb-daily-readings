@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>USCCB Daily Readings</title>
+    <link>https://bible.usccb.org/bible/readings</link>
+    <description>New American Bible Revised Edition</description>
+    <language>en</language>
+    <copyright>Copyright example only for tests.</copyright>
+    <item>
+      <title>Monday of the First Week</title>
+      <link>https://bible.usccb.org/bible/readings/112426.cfm</link>
+      <pubDate>Mon, 24 Nov 2026 09:30:00 +0000</pubDate>
+      <description>
+&lt;h4&gt;Reading 1  &lt;a href="https://bible.usccb.org/bible/romans/1?1"&gt;Romans 1:1-7&lt;/a&gt;&lt;/h4&gt;
+&lt;div class="poetry"&gt;&lt;p&gt;Synthetic first reading text.&lt;/p&gt;&lt;/div&gt;
+&lt;h4&gt;Responsorial Psalm  &lt;a href="https://bible.usccb.org/bible/psalms/98?1"&gt;Psalm 98:1-4&lt;/a&gt;&lt;/h4&gt;
+&lt;div class="poetry"&gt;&lt;p&gt;R. Synthetic refrain&lt;br&gt;More psalm text.&lt;/p&gt;&lt;/div&gt;
+&lt;h4&gt;Alleluia  &lt;a href="https://bible.usccb.org/bible/matthew/4?19"&gt;Matthew 4:19&lt;/a&gt;&lt;/h4&gt;
+&lt;div class="poetry"&gt;&lt;p&gt;Synthetic acclamation.&lt;/p&gt;&lt;/div&gt;
+&lt;h4&gt;Gospel  &lt;a href="https://bible.usccb.org/bible/luke/10?21"&gt;Luke 10:21-24&lt;/a&gt;&lt;/h4&gt;
+&lt;div class="poetry"&gt;&lt;p&gt;Synthetic gospel text.&lt;/p&gt;&lt;/div&gt;
+      </description>
+    </item>
+    <item>
+      <title>Sunday Sample</title>
+      <link>https://bible.usccb.org/bible/readings/112326.cfm</link>
+      <pubDate>Sun, 23 Nov 2026 09:30:00 +0000</pubDate>
+      <description>
+&lt;h4&gt;Reading 1  &lt;a href="https://bible.usccb.org/bible/isaiah/2?1"&gt;Isaiah 2:1-5&lt;/a&gt;&lt;/h4&gt;
+&lt;div class="poetry"&gt;&lt;p&gt;Reading one.&lt;/p&gt;&lt;/div&gt;
+&lt;h4&gt;Reading 2  &lt;a href="https://bible.usccb.org/bible/romans/13?11"&gt;Romans 13:11-14&lt;/a&gt;&lt;/h4&gt;
+&lt;div class="poetry"&gt;&lt;p&gt;Reading two.&lt;/p&gt;&lt;/div&gt;
+&lt;h4&gt;Responsorial Psalm  &lt;a href="https://bible.usccb.org/bible/psalms/122?1"&gt;Psalm 122:1-9&lt;/a&gt;&lt;/h4&gt;
+&lt;div class="poetry"&gt;&lt;p&gt;Psalm.&lt;/p&gt;&lt;/div&gt;
+&lt;h4&gt;Gospel Acclamation  &lt;a href="https://bible.usccb.org/bible/john/1?1"&gt;John 1:1&lt;/a&gt;&lt;/h4&gt;
+&lt;div class="poetry"&gt;&lt;p&gt;Acclamation.&lt;/p&gt;&lt;/div&gt;
+&lt;h4&gt;Gospel  &lt;a href="https://bible.usccb.org/bible/matthew/24?37"&gt;Matthew 24:37-44&lt;/a&gt;&lt;/h4&gt;
+&lt;div class="poetry"&gt;&lt;p&gt;Gospel.&lt;/p&gt;&lt;/div&gt;
+      </description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,23 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "USCCB Daily Readings",
+        "description": "This integration loads English daily Mass readings from the official USCCB RSS feed. No account or API key is required."
+      }
+    },
+    "abort": {
+      "already_configured": "USCCB Daily Readings is already configured."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "daily_mass": { "name": "Daily Mass" },
+      "first_reading": { "name": "First Reading" },
+      "responsorial_psalm": { "name": "Responsorial Psalm" },
+      "second_reading": { "name": "Second Reading" },
+      "gospel_acclamation": { "name": "Gospel Acclamation" },
+      "gospel": { "name": "Gospel" }
+    }
+  }
+}
